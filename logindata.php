@@ -7,7 +7,7 @@ $query="select * from userdetail where username='$username' and password='$passw
 $login= mysqli_query($conn,$query);
 if($row=mysqli_fetch_array($login))
 {
-    //$_SESSION['id']=$row['id'];
+    $_SESSION['id']=$row['id'];
     $_SESSION['fullname']=$row['fullname'];
     $_SESSION['username']=$row['username'];
     $_SESSION['password']=$row['password'];

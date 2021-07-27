@@ -30,7 +30,7 @@
             <input class="form-control" type="password" id="password" placeholder="Password" autocomplete="off">
           </div>
           <div class="form-group btn-container">
-            <button class="btn btn-primary btn-block" id="loginbtn"><i class="fa fa-sign-in fa-lg fa-fw"></i>SIGN IN</button>
+            <button class="btn btn-primary" id="loginbtn"><i class="fa fa-sign-in fa-sm fa-fw"></i>SIGN IN</button>&nbsp;&nbsp;&nbsp;<span><a class="btn btn-primary" href="register.php"><i class="fa fa-sign-in fa-sm fa-fw"></i>Register</a></span>
           </div>
         </form> 
       </div>

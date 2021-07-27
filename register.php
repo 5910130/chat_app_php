@@ -66,18 +66,7 @@
 			    data: { fullname :fullname ,username:username, password:password, mobileNumber:mobileNumber},	
 			    success: function(result)
           {
-            alert(result);
            
-            if(result=="success")
-            {
-              
-              window.location.href="login.php";
-              
-            }
-            else
-            {
-              alert('something wrong');
-            }
 				  }
 			});
 		});
