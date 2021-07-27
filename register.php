@@ -21,22 +21,22 @@
           <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>Register</h3>
           <div class="form-group">
             <label class="control-label">Full Name</label>
-            <input class="form-control" type="text" placeholder="fullname" id="fullname" autofocus>
+            <input class="form-control" type="text" placeholder="fullname" id="fullname" autocomplete="off">
           </div>
           <div class="form-group">
             <label class="control-label">Email</label>
-            <input class="form-control" type="text" placeholder="username" id="username" autofocus>
+            <input class="form-control" type="text" placeholder="username" id="username" autocomplete="off">
           </div>
           <div class="form-group">
             <label class="control-label">Password</label>
-            <input class="form-control" type="password" id="password" placeholder="Password">
+            <input class="form-control" type="password" id="password" placeholder="Password" autocomplete="off">
           </div>
           <div class="form-group">
           <label class="control-label">Mobile Number</label>
-          <input class="form-control" type="text" id="mobileNumber" placeholder="mobileNumber">
+          <input class="form-control" type="text" id="mobileNumber" placeholder="mobileNumber" autocomplete="off">
         </div>
           <div class="form-group btn-container">
-            <button class="btn btn-primary btn-block" id="save"><i class="fa fa-sign-in fa-lg fa-fw"></i>Register</button>
+            <button class="btn btn-primary" id="save"><i class="fa fa-sign-in fa-sm fa-fw"></i>Register</button>&nbsp;&nbsp;<span><a class="btn btn-primary" href="login.php"><i class="fa fa-sign-in fa-sm fa-fw"></i>Login</a></span>
           </div>
         </form> 
       </div>
@@ -49,11 +49,7 @@
     <!-- The javascript plugin to display page loading on top-->
     <script src="js/plugins/pace.min.js"></script>
     <script type="text/javascript">
-      // Login Page Flipbox control
-      $('.login-content [data-toggle="flip"]').click(function() {
-      	$('.login-box').toggleClass('flipped');
-      	return false;
-      });
+  
     </script>
   </body>
 </html>
@@ -61,7 +57,7 @@
 	$(document).ready(function(){
 			$('#save').on('click', function() {
 			var	fullname = $('#fullname').val();
-      var	userame = $('#username').val();
+      var	username = $('#username').val();
 			var	password = $('#password').val();
 			var	mobileNumber = $('#mobileNumber').val();
 			$.ajax({
@@ -70,9 +66,13 @@
 			    data: { fullname :fullname ,username:username, password:password, mobileNumber:mobileNumber},	
 			    success: function(result)
           {
+            alert(result);
+           
             if(result=="success")
             {
+              
               window.location.href="login.php";
+              
             }
             else
             {
