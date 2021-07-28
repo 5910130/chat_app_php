@@ -1,3 +1,7 @@
+<?php
+session_start();
+session_destroy();
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -15,24 +19,25 @@
       <div class="cover"></div>
     </section>
     <section class="login-content">
-      <div class="logo">
-        <h1>Vali</h1>
-      </div>
+      
       <div class="login-box">
-        <form class="login-form" id="myform" action="">
-          <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>Login</h3>
+        <form class="login-form" id="loginForm">
+          <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
+          <input type="hidden" name="operation" value="login">
           <div class="form-group">
             <label class="control-label">USERNAME</label>
-            <input class="form-control" type="text" placeholder="username" id="username" autocomplete="off">
+            <input class="form-control" type="text" name="email" placeholder="Email" autofocus>
           </div>
           <div class="form-group">
             <label class="control-label">PASSWORD</label>
-            <input class="form-control" type="password" id="password" placeholder="Password" autocomplete="off">
+            <input class="form-control" type="password" name="password" placeholder="Password">
           </div>
+          
           <div class="form-group btn-container">
-            <button class="btn btn-primary" id="loginbtn"><i class="fa fa-sign-in fa-sm fa-fw"></i>SIGN IN</button>&nbsp;&nbsp;&nbsp;<span><a class="btn btn-primary" href="register.php"><i class="fa fa-sign-in fa-sm fa-fw"></i>Register</a></span>
+            <button class="btn btn-primary btn-block" id="loginButton"><i class="fa fa-sign-in fa-lg fa-fw"></i>SIGN IN</button>
           </div>
-        </form> 
+        </form>
+        
       </div>
     </section>
     <!-- Essential javascripts for application to work-->
@@ -42,29 +47,29 @@
     <script src="js/main.js"></script>
     <!-- The javascript plugin to display page loading on top-->
     <script src="js/plugins/pace.min.js"></script>
-    <script type="text/javascript">
-     
+    <script>
+    $(document).on("click","#loginButton",function(e) 
+    {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "operation.php",
+            cache: false,
+            data: $('#loginForm').serialize(),
+            success: function(html)
+            {
+                if(html==1)
+                {
+                    window.location = 'index.php';
+                }else
+                {
+                    alert('Invalid username and password.')
+                }
+            }
+        });
+    });
+
+    
     </script>
   </body>
 </html>
-<script>
-	$(document).ready(function(){
-			$('#loginbtn').on('click', function() {
-			var	username = $('#username').val();
-			var	password = $('#password').val();
-			$.ajax({
-			    type: "POST",
-			    url: "logindata.php",
-			    data: { username:username, password:password },	
-			    success: function(result)
-          {
-            if(result=="success")
-            {
-              window.location.href="dashboard.php";
-            }
-				  }
-			});
-		});
-	});
-</script>
-
