@@ -6,7 +6,7 @@ if ($conn->connect_error)
 {
     die("Connection failed: " . $conn->connect_error);
 }
-
+//print_r($_POST);
 if(isset($_POST['operation']))
 {
     switch($_POST['operation'])
@@ -63,7 +63,7 @@ if(isset($_POST['operation']))
             $row = $result -> fetch_assoc();
             if ($row) 
             {
-                $sql = "UPDATE `friends` SET `status`='Pending' WHERE `senderId`='".$_SESSION['userdata']['id']."' AND `receiverId`='$userId'";
+            $sql = "UPDATE `friends` SET `status`='Pending' WHERE `senderId`='".$_SESSION['userdata']['id']."' AND `receiverId`='$userId'";
             } 
             else 
             {
@@ -133,6 +133,27 @@ if(isset($_POST['operation']))
             $conn->close();
             break;
         }
+        case 'sendchat':
+            {
+    
+                $senderId = $_SESSION['userdata']['id'];
+                $receiverId = $_POST['model_id'];
+                $chatMessage =$_POST['chatMessage'];
+
+                $sql = "INSERT INTO `message`( `senderId`, `receiverId`, `chatMessage`) VALUES ('$senderId', '$receiverId', '$chatMessage')";
+                if ($conn->query($sql) === TRUE) 
+                {
+                   echo 1;
+                } 
+                else 
+                {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+    
+                $conn->close();
+    
+                break;
+            }
     }
 }
 

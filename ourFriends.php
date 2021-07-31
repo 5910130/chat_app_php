@@ -16,6 +16,7 @@ while( $row = mysqli_fetch_array($result))
     if($_SESSION['userdata']['id']==$row['senderId'])
     {
         $friendList .= $row['receiverId'].',';
+
     }else
     {
         $friendList .= $row['senderId'].',';
@@ -81,74 +82,58 @@ $result = mysqli_query($conn,$sql);
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Perveen Kumar</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    
+                    <h4 class="modal-title"> Hi <?php echo $_SESSION['userdata']['fullName'];?></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button></div>
+                <form action="#" method="POST" id="myform">
+                <div class="modal-body" id="chat_history" style="height:400px; overflow-y:scroll; overflow-x:hidden;">
                 </div>
-                <div class="modal-body">
-                    <p style="text-align:left;padding-right: 40%;">Some text in the modal .Some text in the modal .Some text in the modal .Some text in the modal .Some text in the modal .Some text in the modal .</p>
-                    <p style="text-align:right;padding-left: 40%;">Some text in the modal.</p>
-                    <p style="text-align:left;padding-right: 40%;">Some text in the modal.</p>
-                    <p style="text-align:right;padding-left: 40%;">Some text in the modal.</p>
-                </div>
+                <input type="hidden" id="model_id" name="model_id">
+                <input type="hidden" name="operation" value="sendchat">
                 <div class="modal-footer">
-                    <input type="text" class="form-control" id="chatMsg">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Send</button>
+                    <input type="text" class="form-control" name="chatMessage" id="chatMsg">
+                    <button type="button" class="btn btn-success send_btn" data-dismiss="modal">Send</button>
+                </from>
                 </div>
             </div>
-
         </div>
     </div>
+
     <script>
-    $(document).on("click","#requestButton",function(e) 
+    $(document).on("click","#chatButton",function(e) 
     {
         e.preventDefault();
-        userId = $(this).prop('class');
-        if($(this).html()=='Send Request')
-        {
-            operation = 'sendRequest';
-        }else
-        {
-            operation = 'cancelRequest';
-        }
+        toUser = $(this).prop('class');
+        //alert(toUser);
+        $("#model_id").val(toUser);
+        $.ajax({
+            type: "POST",
+            url: "insert_chat.php",
+            data: {toUser:toUser},
+            success: function(data)
+            {
+                $("#chat_history").html(data);
+            }
+        });
+    });
+     $(document).on("click",".send_btn",function(e) 
+    {
+        e.preventDefault(); 
         $.ajax({
             type: "POST",
             url: "operation.php",
             cache: false,
-            data: {operation:operation,userId:userId},
-            dataType: 'json',
-            context: this,
-            success: function(html)
+            data: $('#myform').serialize(),
+            success: function(data)
             {
-                if($(this).html()=='Send Request')
+                if(html==1)
                 {
-                    
-                    if(html==1)
-                    {
-                        alert('Friend request send successfully.');
-                        $(this).html('Cancel Request');
-                    }else
-                    {
-                        alert('Friend request not sent.');
-                    }
-                }else
-                {
-                    if(html==1)
-                    {
-                        alert('Friend request cancel successfully.');
-                        $(this).html('Send Request');
-                    }else
-                    {
-                        alert('Friend request not cancel.');
-                    }
+                    alert("New record created successfully");
+                    $('#myform').trigger("reset");
                 }
             }
         });
-    });
-       
-
-    </script>
-
+    });    
+</script>
 <?php
 require('footer.php');
 
