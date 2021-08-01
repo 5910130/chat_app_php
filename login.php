@@ -36,8 +36,11 @@ session_destroy();
           <div class="form-group btn-container">
             <button class="btn btn-primary btn-block" id="loginButton"><i class="fa fa-sign-in fa-lg fa-fw"></i>SIGN IN</button>
           </div>
+          <br>
+          <div class="form-group btn-container">
+            <button class="btn btn-danger btn-block" id="submitButton" ><i class="fa fa-sign-in fa-lg fa-fw"></i>Registration</button>
+          </div>
         </form>
-        
       </div>
     </section>
     <!-- Essential javascripts for application to work-->
@@ -68,8 +71,12 @@ session_destroy();
             }
         });
     });
+    $(document).on("click","#submitButton",function(e) 
+    {
+        e.preventDefault();
+        window.location = 'registration.php';
+    });
 
-    
     </script>
   </body>
 </html>

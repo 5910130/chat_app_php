@@ -9,13 +9,14 @@ if ($conn->connect_error)
 if(isset($_POST['toUser']))
  {
     //$_SESSION['toUser']=$_POST['toUser'];
-        $chats = mysqli_query($conn,"SELECT * FROM message  WHERE (senderId = '".$_SESSION['userdata']['id']."' 
+        $chats ="SELECT * FROM message  WHERE (senderId = '".$_SESSION['userdata']['id']."' 
         AND receiverId = '".$_POST['toUser']."') 
         OR (senderId = '".$_POST['toUser']."' 
-        AND receiverId = '".$_SESSION['userdata']['id']."')");
-        $chat = mysqli_fetch_assoc($chats);
+        AND receiverId = '".$_SESSION['userdata']['id']."') ORDER BY id ASC";
+        $result = $conn->query($chats);
+       // $chat = mysqli_fetch_assoc($chats);
         //print_r($chat);
-        while($chat = mysqli_fetch_assoc($chats))
+        while($chat = mysqli_fetch_assoc($result))
         {
             if($chat['senderId'] == $_SESSION['userdata']['id'])
             {
