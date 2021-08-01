@@ -145,10 +145,10 @@ $result = mysqli_query($conn, $sql);
             },
             success: function(data)
              {
-                $("#chat_history").html(data);
-            }
+               $("#chat_history").html(data);
+             }
         });
-                    $('#myform').trigger("reset");
+                $('#myform').trigger("reset");
                 }
             }
         });
