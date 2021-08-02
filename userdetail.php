@@ -62,7 +62,6 @@ $result = mysqli_query($conn,$sql);
       </div>
     </main>
     <script>
-    
    	$(document).ready(function(){ 
         $("#newbutton").click(function (){
          $('#myform').trigger("reset");
@@ -101,7 +100,7 @@ $result = mysqli_query($conn,$sql);
          var del_id= $(this).data('id');
          operation = 'deleteRow';
 		     var element= this;
-        $.ajax({
+      $.ajax({
         type:'POST',
         url:'operation.php',
         data:{operation:operation,id:del_id},

@@ -37,9 +37,9 @@ session_destroy();
             <button class="btn btn-primary btn-block" id="loginButton"><i class="fa fa-sign-in fa-lg fa-fw"></i>SIGN IN</button>
           </div>
           <br>
-          <div class="form-group btn-container">
+          <!-- <div class="form-group btn-container">
             <button class="btn btn-danger btn-block" id="submitButton" ><i class="fa fa-sign-in fa-lg fa-fw"></i>Registration</button>
-          </div>
+          </div> -->
         </form>
       </div>
     </section>
@@ -71,11 +71,11 @@ session_destroy();
             }
         });
     });
-    $(document).on("click","#submitButton",function(e) 
-    {
-        e.preventDefault();
-        window.location = 'registration.php';
-    });
+    // $(document).on("click","#submitButton",function(e) 
+    // {
+    //     e.preventDefault();
+    //     window.location = 'index.php';
+    // });
 
     </script>
   </body>

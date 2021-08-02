@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$conn=mysqli_connect('localhost','root','','chat');
+$conn=mysqli_connect('localhost','root','','curd');
 if ($conn->connect_error) 
 {
     die("Connection failed: " . $conn->connect_error);
@@ -11,14 +11,15 @@ if(isset($_POST['operation']))
 {
     switch($_POST['operation'])
     {
-        case 'registration':
+        case 'insert':
         {
 
-            $fullName = $_POST['fullName'];
+            $firstName = $_POST['firstName'];
+            $lastName = $_POST['lastName'];
             $mobileNumber = $_POST['mobileNumber'];
             $email = $_POST['email'];
             $password = $_POST['password'];
-            $sql = "INSERT INTO `user_details`( `fullname`, `mobileNumber`, `email`, `password`) VALUES ('$fullName', '$mobileNumber', '$email','$password')";
+            $sql = "INSERT INTO `user_details`( `firstName`,`lastName`, `mobileNumber`, `email`, `password`) VALUES ('$firstName','$lastName', '$mobileNumber', '$email','$password')";
             if ($conn->query($sql) === TRUE) 
             {
                echo 1;
@@ -55,99 +56,55 @@ if(isset($_POST['operation']))
 
             break;
         }
-        case 'sendRequest':
-        {
-            $userId = $_POST['userId'];
-            $sql = "SELECT * FROM `friends` WHERE `senderId`='".$_SESSION['userdata']['id']."' AND `receiverId`='$userId'";
-            $result = $conn->query($sql);
-            $row = $result -> fetch_assoc();
-            if ($row) 
-            {
-            $sql = "UPDATE `friends` SET `status`='Pending' WHERE `senderId`='".$_SESSION['userdata']['id']."' AND `receiverId`='$userId'";
-            } 
-            else 
-            {
-                $sql = "INSERT INTO `friends`( `senderId`, `receiverId`, `status`) VALUES ('".$_SESSION['userdata']['id']."', '$userId', 'Pending')";
-            }
-
-            if ($conn->query($sql) === TRUE) 
-            {
-            echo 1;
-            } 
-            else 
-            {
-                echo 0;
-            }
-            
-
-            $conn->close();
-            break;
-        }
-
-        case 'cancelRequest':
-        {
-            $userId = $_POST['userId'];
-            $sql = "UPDATE `friends` SET `status`='Cancel' WHERE `senderId`='".$_SESSION['userdata']['id']."' AND `receiverId`='$userId'";
-            if ($conn->query($sql) === TRUE) 
-            {
-                echo 1;
-            } 
-            else 
-            {
-                echo 0;
-            }
-
-            $conn->close();
-            break;
-        }
-
-        case 'acceptRequest':
-        {
-            $userId = $_POST['userId'];
-            $sql = "UPDATE `friends` SET `status`='Accept' WHERE `receiverId`='".$_SESSION['userdata']['id']."' AND `senderId`='$userId'";
-            if ($conn->query($sql) === TRUE) 
-            {
-                echo 1;
-            } 
-            else 
-            {
-                echo 0;
-            }
-
-            $conn->close();
-            break;
-        }
-        case 'rejectRequest':
-        {
-            $userId = $_POST['userId'];
-            $sql = "UPDATE `friends` SET `status`='Reject' WHERE `receiverId`='".$_SESSION['userdata']['id']."' AND `senderId`='$userId'";
-            if ($conn->query($sql) === TRUE) 
-            {
-                echo 1;
-            } 
-            else 
-            {
-                echo 0;
-            }
-
-            $conn->close();
-            break;
-        }
-        case 'sendchat':
+        
+        case 'editOperation':
             {
     
-                $senderId = $_SESSION['userdata']['id'];
-                $receiverId = $_POST['model_id'];
-                $chatMessage =$_POST['chatMessage'];
+                $id=$_POST['id'];
+                $query='select * from user_details where id='.$id;
+                $data=mysqli_query($conn,$query);
+                $result=mysqli_fetch_array($data);
+                echo json_encode($result); 
 
-                $sql = "INSERT INTO `message`( `senderId`, `receiverId`, `chatMessage`) VALUES ('$senderId', '$receiverId', '$chatMessage')";
+                $conn->close();
+
+                break;
+            }
+
+        case 'update':
+            {
+                $id = $_POST['modelUpdate_id'];             
+                $firstName = $_POST['firstNameU'];
+                $lastName = $_POST['lastNameU'];
+                $mobileNumber = $_POST['mobileNumberU'];
+                $email = $_POST['emailU'];
+                $password = $_POST['passwordU'];
+                $sql = "UPDATE `user_details` SET `firstName`='$firstName',`lastName`='$lastName',`mobileNumber`='$mobileNumber',`email`='$email',`password`='$password' WHERE id =".$id;
                 if ($conn->query($sql) === TRUE) 
                 {
-                   echo 1;
+                echo 1;
                 } 
                 else 
                 {
                     echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+                $conn->close();
+
+                break;
+            }
+        
+        case 'deleteRow':
+            {
+    
+                $id=$_POST['id'];
+                $sql = 'Delete from user_details WHERE id='.$id;
+                if(mysqli_query($conn, $sql))
+                {
+                    echo 1;
+                }
+                else
+                {
+                    echo 0;
                 }
     
                 $conn->close();
