@@ -6,7 +6,7 @@ if ($conn->connect_error)
 {
     die("Connection failed: " . $conn->connect_error);
 }
-//print_r($_POST);
+
 if(isset($_POST['operation']))
 {
     switch($_POST['operation'])
