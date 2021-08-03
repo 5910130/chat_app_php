@@ -51,6 +51,6 @@ if(!$_SESSION['userdata'])
       </div>
       <ul class="app-menu">
         <li><a class="app-menu__item" href="index.php"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
-        <!-- <li><a class="app-menu__item" href="userdetail.php"><i class="app-menu__icon fa fa-file-text"></i><span class="app-menu__label">User</span></a></li> -->
+         <li><a class="app-menu__item" href="studentdetail.php"><i class="app-menu__icon fa fa-file-text"></i><span class="app-menu__label">Student</span></a></li> 
       </ul>
     </aside>

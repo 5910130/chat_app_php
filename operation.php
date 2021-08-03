@@ -11,33 +11,32 @@ if(isset($_POST['operation']))
 {
     switch($_POST['operation'])
     {
-        case 'insert':
-        {
-
-            $firstName = $_POST['firstName'];
-            $lastName = $_POST['lastName'];
-            $mobileNumber = $_POST['mobileNumber'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            $sql = "INSERT INTO `user_details`( `firstName`,`lastName`, `mobileNumber`, `email`, `password`) VALUES ('$firstName','$lastName', '$mobileNumber', '$email','$password')";
-            if ($conn->query($sql) === TRUE) 
+        case 'registration':
             {
-               echo 1;
-            } 
-            else 
-            {
-                echo "Error: " . $sql . "<br>" . $conn->error;
+                $fullName = $_POST['fullName'];
+                $mobileNumber = $_POST['mobileNumber'];
+                $email = $_POST['email'];
+                $password = $_POST['password'];
+                $sql = "INSERT INTO `users_detail`( `fullname`, `mobileNumber`, `email`, `password`) VALUES ('$fullName', '$mobileNumber', '$email','$password')";
+                if ($conn->query($sql) === TRUE) 
+                {
+                   echo 1;
+                } 
+                else 
+                {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+    
+                $conn->close();
+    
+                break;
             }
-
-            $conn->close();
-
-            break;
-        }
+        
         case 'login':
-        {
+            {
             $email = $_POST['email'];
             $password = $_POST['password'];
-            $sql = "SELECT * FROM `user_details` WHERE `email`='$email' AND `password`='$password'";
+            $sql = "SELECT * FROM `users_detail` WHERE `email`='$email' AND `password`='$password'";
             $result = $conn->query($sql);
             $row = $result -> fetch_assoc();
             if ($row) 
@@ -55,13 +54,37 @@ if(isset($_POST['operation']))
             $conn->close();
 
             break;
-        }
+
+            }
+
+        case 'insert':
+            {
+    
+                $firstName = $_POST['firstName'];
+                $lastName = $_POST['lastName'];
+                $fatherName = $_POST['fatherName'];
+                $mobileNumber = $_POST['mobileNumber'];
+                $email = $_POST['email'];
+                $sql = "INSERT INTO `student_detail`( `firstName`,`lastName`,`fatherName`,`mobileNumber`, `email`) VALUES ('$firstName','$lastName','$fatherName','$mobileNumber', '$email')";
+                if ($conn->query($sql) === TRUE) 
+                {
+                   echo 1;
+                } 
+                else 
+                {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+    
+                $conn->close();
+    
+                break;
+            }
         
         case 'editOperation':
             {
     
                 $id=$_POST['id'];
-                $query='select * from user_details where id='.$id;
+                $query='select * from student_detail where id='.$id;
                 $data=mysqli_query($conn,$query);
                 $result=mysqli_fetch_array($data);
                 echo json_encode($result); 
@@ -76,10 +99,10 @@ if(isset($_POST['operation']))
                 $id = $_POST['modelUpdate_id'];             
                 $firstName = $_POST['firstNameU'];
                 $lastName = $_POST['lastNameU'];
+                $fatherName= $_POST['fatherNameU'];
                 $mobileNumber = $_POST['mobileNumberU'];
                 $email = $_POST['emailU'];
-                $password = $_POST['passwordU'];
-                $sql = "UPDATE `user_details` SET `firstName`='$firstName',`lastName`='$lastName',`mobileNumber`='$mobileNumber',`email`='$email',`password`='$password' WHERE id =".$id;
+                $sql = "UPDATE `student_detail` SET `firstName`='$firstName',`lastName`='$lastName',`fatherName`='$fatherName',`mobileNumber`='$mobileNumber',`email`='$email' WHERE id =".$id;
                 if ($conn->query($sql) === TRUE) 
                 {
                 echo 1;
@@ -97,7 +120,7 @@ if(isset($_POST['operation']))
             {
     
                 $id=$_POST['id'];
-                $sql = 'Delete from user_details WHERE id='.$id;
+                $sql = 'Delete from student_detail WHERE id='.$id;
                 if(mysqli_query($conn, $sql))
                 {
                     echo 1;

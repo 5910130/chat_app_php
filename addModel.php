@@ -20,16 +20,16 @@
             <input class="form-control" type="text" placeholder="Last Name" name="lastName" id="lastName" autofocus >
           </div>
           <div class="form-group">
+            <label class="control-label">Father Name</label>
+            <input class="form-control" type="text" placeholder="Father Name" name="fatherName" id="fatherName">
+          </div>
+          <div class="form-group">
             <label class="control-label">Mobile Number</label>
             <input class="form-control" type="text" placeholder="Mobile Number" name="mobileNumber" id="mobileNumber">
           </div>
           <div class="form-group">
             <label class="control-label">Email Id</label>
             <input class="form-control" type="text" placeholder="Email Id" name="email" id="email">
-          </div>
-          <div class="form-group">
-            <label class="control-label">Password</label>
-            <input class="form-control" type="password" placeholder="Password" name="password" id="password">
           </div>			
       </div>
       <div class="modal-footer">
@@ -61,11 +61,11 @@
         });
     });
 
-    // $(document).on("click","#loginButton",function(e) 
-    // {
-    //     e.preventDefault();
-    //     window.location = 'login.php';
-    // });
+     $(document).on("click","#loginButton",function(e) 
+    {
+       e.preventDefault();
+         window.location = 'login.php';
+     });
     </script>
            
 	

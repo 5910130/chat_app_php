@@ -21,16 +21,16 @@
             <input class="form-control" type="text" placeholder="Last Name" name="lastNameU" id="lastNameU" autofocus >
           </div>
           <div class="form-group">
+            <label class="control-label">Father Name</label>
+            <input class="form-control" type="text" placeholder="Father Name" name="fatherNameU" id="fatherNameU">
+          </div>
+          <div class="form-group">
             <label class="control-label">Mobile Number</label>
             <input class="form-control" type="text" placeholder="Mobile Number" name="mobileNumberU" id="mobileNumberU">
           </div>
           <div class="form-group">
             <label class="control-label">Email Id</label>
             <input class="form-control" type="text" placeholder="Email Id" name="emailU" id="emailU">
-          </div>
-          <div class="form-group">
-            <label class="control-label">Password</label>
-            <input class="form-control" type="password" placeholder="Password" name="passwordU" id="passwordU">
           </div>			
       </div>
       <div class="modal-footer">
